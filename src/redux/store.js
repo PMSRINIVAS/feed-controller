@@ -2,7 +2,8 @@ import { applyMiddleware, createStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import axios from "axios";
 
-const initState = {
+export const initState = {
+  counter: 1,
   feedList: [],
   progress: false,
 };
@@ -16,6 +17,20 @@ const FEED_GET_BY_ID_ACTION_TYPE = "FEED_GET_BY_ID_ACTION_TYPE";
 const FEED_CREATE_ACTION_TYPE = "FEED_CREATE_ACTION_TYPE";
 const FEED_UPDATE_ACTION_TYPE = "FEED_UPDATE_ACTION_TYPE";
 const FEED_DELETE_ACTION_TYPE = "FEED_DELETE_ACTION_TYPE";
+
+//INCREMENT AND DECREMENT FUNCTION
+const INCREMENT_ACTION_TYPE = "INCREMENT_ACTION_TYPE";
+const DECREMENT_ACTION_TYPE = "DECREMENT_ACTION_TYPE";
+
+export function incrementAction() {
+  //WE ARE UPDATING THE UI
+  return { type: INCREMENT_ACTION_TYPE };
+}
+
+export function decrementAction() {
+  //WE ARE UPDATING THE UI
+  return { type: DECREMENT_ACTION_TYPE };
+}
 
 // ACTIONS
 export const getAllFeedAction = () => {
@@ -61,6 +76,14 @@ export const deleteFeedAction = (payload) => {
 // REDURE FOR STATE UPDTE
 function FeedReducer(state = initState, action) {
   switch (action.type) {
+    case INCREMENT_ACTION_TYPE:
+      const newCounter = state.counter + 2;
+      return { ...state, counter: newCounter };
+
+    case DECREMENT_ACTION_TYPE:
+      const newCounter1 = state.counter - 1;
+      return { ...state, counter: newCounter1 };
+
     case FEED_GET_ALL_ACTION_TYPE:
       return { ...state, feedList: action.payload };
 
