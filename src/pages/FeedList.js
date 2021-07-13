@@ -1,9 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFeedAction, getAllFeedAction } from "../redux/store";
-import { decrementAction, incrementAction } from "../redux/store";
+import { useHistory } from "react-router-dom";
+
+import {
+  deleteFeedAction,
+  getAllFeedAction,
+  updateRenderAction,
+} from "../redux/FeedReducer";
 
 export const FeedList = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -17,26 +23,29 @@ export const FeedList = () => {
     dispatch(deleteFeedAction(item));
   };
 
-  const increment = (item) => {
-    //   dispatch({type:"INCREMENT"});
-    dispatch(incrementAction(item));
-  };
+  // Step2-update
+  const updateRecord = (item) => {
+    console.log("UPDATE RECORD", item);
 
-  const decrement = (item) => {
-    // dispatch({ type: "DECREMENT" });
-    dispatch(decrementAction(item));
+    // Step3-updating the store
+    dispatch(updateRenderAction(item));
+
+    //navigating to the page
+    history.push("/feed-upsert");
   };
 
   return (
     <div>
-      <div className="alert alert-secondary">
+      <div className="alert alert-secondary mb-0">
         <h3>Feed List</h3>
       </div>
 
       <table className="table">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">
+              <div className="mr-3">Feed Id</div>
+            </th>
             <th scope="col">Query</th>
             <th scope="col">FeedDate</th>
             <th scope="col">FeedTime</th>
@@ -48,7 +57,7 @@ export const FeedList = () => {
           </tr>
         </thead>
         <tbody>
-          {state.feedList.map((item, index, counter) => (
+          {state.feed.feedList.map((item, index) => (
             <tr key={index}>
               <th scope="row">{item.id}</th>
               <td>{item.query}</td>
@@ -57,30 +66,24 @@ export const FeedList = () => {
               <td>{item.topic}</td>
               <td>{item.relevance}</td>
               <td>{item.totalComments}</td>
-              {/* <td>{item.likes}</td> */}
-              <td>{state.counter}</td>
+              <td>{item.likes}</td>
+              {/* <td>{state.counter}</td> */}
 
               <td>
+                {/**Step1-update */}
                 <input
                   type="button"
-                  value="DELETE"
+                  value="Update ✍️ "
+                  className="btn btn-outline-secondary btn-sm mr-1"
+                  onClick={() => updateRecord(item)}
+                />
+
+                <input
+                  type="button"
+                  value="DELETE 🗑️ "
                   // onClick={deleteRecord}
                   onClick={() => deleteRecord(item)}
                   className="btn btn-outline-danger btn-sm mb-1 ml-1 mr-2 "
-                />
-
-                <input
-                  type="button"
-                  value="Likes"
-                  onClick={() => increment(item)}
-                  className="btn btn-primary btn-sm"
-                />
-
-                <input
-                  type="button"
-                  value="Dislikes"
-                  onClick={() => decrement(item)}
-                  className="btn btn-danger btn-sm ml-2"
                 />
               </td>
             </tr>
