@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -16,6 +16,13 @@ export const FeedList = () => {
   useEffect(() => {
     dispatch(getAllFeedAction());
   }, []);
+
+  //Static Likes function
+  let [like, setlike] = useState(0);
+  const addLike = () => {
+    like = like + 1;
+    setlike(like);
+  };
 
   const deleteRecord = (item) => {
     console.log("DELETE RECORD", item.id);
@@ -52,8 +59,10 @@ export const FeedList = () => {
             <th scope="col">Topic</th>
             <th scope="col">Relevance</th>
             <th scope="col">TotalComments</th>
-            <th scope="col">Likes</th>
-            <th scope="col">Action</th>
+
+            <th scope="col" className=" text-center">
+              Action
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -66,15 +75,13 @@ export const FeedList = () => {
               <td>{item.topic}</td>
               <td>{item.relevance}</td>
               <td>{item.totalComments}</td>
-              <td>{item.likes}</td>
-              {/* <td>{state.counter}</td> */}
 
               <td>
                 {/**Step1-update */}
                 <input
                   type="button"
                   value="Update ✍️ "
-                  className="btn btn-outline-secondary btn-sm mr-1"
+                  className="btn btn-outline-secondary btn-sm mr-3"
                   onClick={() => updateRecord(item)}
                 />
 
@@ -83,8 +90,15 @@ export const FeedList = () => {
                   value="DELETE 🗑️ "
                   // onClick={deleteRecord}
                   onClick={() => deleteRecord(item)}
-                  className="btn btn-outline-danger btn-sm mb-1 ml-1 mr-2 "
+                  className="btn btn-outline-danger btn-sm mb-1 ml-1 mr-5 "
                 />
+                <button
+                  className=" btn btn-secondary btn-sm] text-light"
+                  onClick={addLike}
+                >
+                  <span className="ml-3">Likes 👍 </span>
+                  {like}
+                </button>
               </td>
             </tr>
           ))}

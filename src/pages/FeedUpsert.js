@@ -17,7 +17,7 @@ export const FeedUpsert = () => {
   const [totalComments, setTotalComments] = useState(
     state.feed.uref.totalComments
   );
-  const [likes, setLikes] = useState(state.feed.uref.likes);
+  // const [likes, setLikes] = useState(state.feed.uref.likes);
 
   const updateQuery = (e) => setQuery(e.target.value);
   const updateFeedDate = (e) => setFeedDate(e.target.value);
@@ -25,7 +25,7 @@ export const FeedUpsert = () => {
   const updateTopic = (e) => setTopic(e.target.value);
   //   const updateRelevance = (e) => setRelevance(e.target.value);
   //   const updateTotalComments = (e) => setTotalComments(e.target.value);
-  const updateLikes = (e) => setLikes(e.target.value);
+  // const updateLikes = (e) => setLikes(e.target.value);
 
   const updateRelevance = (e) => {
     console.log(e.target.value);
@@ -59,7 +59,7 @@ export const FeedUpsert = () => {
           topic,
           relevance,
           totalComments,
-          likes,
+          // likes,
         })
       );
 
@@ -70,7 +70,7 @@ export const FeedUpsert = () => {
       setTopic("");
       setRelevance("");
       setTotalComments("");
-      setLikes("");
+      // setLikes("");
     } else {
       e.stopPropagation();
       formEl.current.classList.add("was-validated");
@@ -91,7 +91,7 @@ export const FeedUpsert = () => {
           topic,
           relevance,
           totalComments,
-          likes,
+          // likes,
         })
       );
 
@@ -102,7 +102,7 @@ export const FeedUpsert = () => {
       setTopic("");
       setRelevance("");
       setTotalComments("");
-      setLikes("");
+      // setLikes("");
     } else {
       e.stopPropagation();
       formEl.current.classList.add("was-validated");
@@ -191,7 +191,7 @@ export const FeedUpsert = () => {
           />
         </div>
 
-        <div>
+        {/* <div>
           <input
             type="Number"
             value={likes}
@@ -200,7 +200,7 @@ export const FeedUpsert = () => {
             placeholder="Enter a Like"
             required
           />
-        </div>
+        </div> */}
 
         <div>
           {state.feed.uref.id ? (
