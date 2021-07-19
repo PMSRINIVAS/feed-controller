@@ -10,6 +10,9 @@ import { FeedList } from "./pages/FeedList";
 import { FeedUpsert } from "./pages/FeedUpsert";
 import { AppNav } from "./pages/AppNav";
 import { useSelector } from "react-redux";
+import { DeveloperList } from "./pages/DeveloperList";
+
+import { DeveloperUpsert } from "./pages/DeveloperUpsert";
 
 function App() {
   const history = useHistory();
@@ -29,6 +32,8 @@ function App() {
       </div> */}
 
       <Route exact path="/" component={FeedList} />
+      <Route exact path="/developer-list" component={DeveloperList} />
+      <Route exact path="/developer-upsert" component={DeveloperUpsert} />
       <Route exact path="/feed-upsert" component={FeedUpsert} />
       <Route exact path="/feed-list" component={FeedList} />
     </>

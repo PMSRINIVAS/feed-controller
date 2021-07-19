@@ -1,11 +1,18 @@
 import { Nav, Navbar } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
+import { updateRenderAction1 } from "../redux/DeveloperReducer";
+
 import { updateRenderAction } from "../redux/FeedReducer";
 
 export const AppNav = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const clearDeveloperURef1 = () => {
+    dispatch(updateRenderAction1({}));
+    history.push("/developer-upsert");
+  };
 
   const clearFeedUref = () => {
     dispatch(updateRenderAction({}));
@@ -18,6 +25,10 @@ export const AppNav = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
+          <Nav.Link as={Link} to="/developer-list">
+            Developer List
+          </Nav.Link>
+          <Nav.Link onClick={clearDeveloperURef1}>Developer Upsert</Nav.Link>
           <Nav.Link
             as={Link}
             to="/feed-list"
