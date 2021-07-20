@@ -17,6 +17,7 @@ const FEED_UPDATE_RENDER_ACTION_TYPE = "FEED_UPDATE_RENDER_ACTION_TYPE";
 
 const FEED_GET_BY_ID_ACTION_TYPE = "FEED_GET_BY_ID_ACTION_TYPE";
 const FEED_GET_BY_TOPIC_ACTION_TYPE = "FEED_GET_BY_TOPIC_ACTION_TYPE";
+const FEED_GET_BY_KEYWORD_ACTION_TYPE = "FEED_GET_BY_KEYWORD_ACTION_TYPE";
 const FEED_CREATE_ACTION_TYPE = "FEED_CREATE_ACTION_TYPE";
 const FEED_UPDATE_ACTION_TYPE = "FEED_UPDATE_ACTION_TYPE";
 const FEED_DELETE_ACTION_TYPE = "FEED_DELETE_ACTION_TYPE";
@@ -51,6 +52,32 @@ export const getFeedByIdAction = (payload) => {
         payload: [response.data],
       });
     }
+  };
+};
+
+//Get by topic
+export const getFeedByTopicAction = (payload) => {
+  return async (dispatch) => {
+    // API CALL :: FETCH RECORDS
+    const url = `http://localhost:8080/api/v1/feeds/get/topic/${payload.topic}`;
+    const response = await axios.get(url);
+
+    console.log(response);
+    dispatch({ type: "FEED_GET_BY_TOPIC_ACTION_TYPE", payload: response.data });
+  };
+};
+
+export const getFeedByKeywordAction = (payload) => {
+  return async (dispatch) => {
+    // API CALL :: FETCH RECORDS
+    const url = `http://localhost:8080/api/v1/feeds/get/topic/keyword/${payload.keyword}`;
+    const response = await axios.get(url);
+
+    console.log(response);
+    dispatch({
+      type: "FEED_GET_BY_KEYWORD_ACTION_TYPE",
+      payload: response.data,
+    });
   };
 };
 
@@ -115,6 +142,12 @@ export function FeedReducer(state = initState, action) {
       return { ...state, feedList: action.payload };
 
     case FEED_GET_BY_ID_ACTION_TYPE:
+      return { ...state, feedList: action.payload };
+
+    case FEED_GET_BY_TOPIC_ACTION_TYPE:
+      return { ...state, feedList: action.payload };
+
+    case FEED_GET_BY_KEYWORD_ACTION_TYPE:
       return { ...state, feedList: action.payload };
 
     case PROGRESS_ACTION_TYPE:

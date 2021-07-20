@@ -7,6 +7,8 @@ import {
   getAllFeedAction,
   updateRenderAction,
   getFeedByIdAction,
+  getFeedByTopicAction,
+  getFeedByKeywordAction,
 } from "../redux/FeedReducer";
 
 export const FeedList = () => {
@@ -17,6 +19,9 @@ export const FeedList = () => {
 
   const [id, setId] = useState(state.feed.uref.id);
   const updateId = (e) => setId(e.target.value);
+
+  const [topic, setTopic] = useState(state.feed.uref.topic);
+  const updateTopic = (e) => setTopic(e.target.value);
 
   useEffect(() => {
     dispatch(getAllFeedAction());
@@ -38,15 +43,36 @@ export const FeedList = () => {
     }
   };
 
-  // const getFeedByIdRecord = () => {
-  //   dispatch(getFeedByIdAction(2));
-  // };
+  const getFeedByTopicRecord = (e) => {
+    e.preventDefault();
+    const isFormValid = formEl.current.checkValidity();
+    if (isFormValid) {
+      dispatch(
+        getFeedByTopicAction({
+          topic,
+        })
+      );
+      setTopic("");
+    } else {
+      e.stopPropagation();
+      formEl.current.classList.add("was-validated");
+    }
+  };
 
-  //Static Likes function
-  // let [like, setlike] = useState(0);
-  // const addLike = () => {
-  //   like = like + 1;
-  //   setlike(like);
+  // const getFeedByKeywordRecord = (e) => {
+  //   e.preventDefault();
+  //   const isFormValid = formEl.current.checkValidity();
+  //   if (isFormValid) {
+  //     dispatch(
+  //       getFeedByKeywordAction({
+  //         topic,
+  //       })
+  //     );
+  //     setTopic("");
+  //   } else {
+  //     e.stopPropagation();
+  //     formEl.current.classList.add("was-validated");
+  //   }
   // };
 
   const deleteRecord = (item) => {
@@ -85,6 +111,44 @@ export const FeedList = () => {
             <input type="button" value="Search" onClick={getFeedByIdRecord} />
           </div>
         </form>
+
+        <form ref={formEl} className="mx-4 needs-validation" noValidate>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter your topic"
+              value={topic}
+              onChange={updateTopic}
+              className="form-control form-control-sm mb-1 mr-5 "
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="Search"
+              onClick={getFeedByTopicRecord}
+            />
+          </div>
+        </form>
+
+        {/* <form ref={formEl} className="mx-4 needs-validation" noValidate>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter your topic keyword"
+              value={topic}
+              onChange={updateTopic}
+              className="form-control form-control-sm mb-1 mr-5 "
+            />
+          </div>
+          <div>
+            <input
+              type="button"
+              value="Search"
+              onClick={getFeedByKeywordRecord}
+            />
+          </div>
+        </form> */}
       </div>
 
       <table className="table">
@@ -134,13 +198,6 @@ export const FeedList = () => {
                   onClick={() => deleteRecord(item)}
                   className="btn btn-outline-danger btn-sm mb-1 ml-1 mr-1 "
                 />
-                {/* <button
-                  className=" btn btn-secondary btn-sm] text-light"
-                  onClick={addLike}
-                >
-                  <span className="ml-3">Likes 👍 </span>
-                  {like}
-                </button> */}
               </td>
             </tr>
           ))}
