@@ -102,104 +102,112 @@ export const FeedUpsert = () => {
   };
 
   return (
-    <div>
-      <div className="alert alert-secondary">
-        {state.feed.uref.id ? <h5>Feed Update</h5> : <h5>Feed Create</h5>}
+    <div style={{ backgroundImage: "url(1.png)" }} className="sign-up-bg">
+      <div>
+        <div className="alert alert-secondary">
+          {state.feed.uref.id ? <h5>Feed Update</h5> : <h5>Feed Create</h5>}
+        </div>
+
+        {state.feed.progress && (
+          <div className="mx-4 alert alert-success">Operation Success</div>
+        )}
+
+        <form ref={formEl} className="mx-4 needs-validation " noValidate>
+          <div>
+            <input
+              type="text"
+              value={query}
+              onChange={updateQuery}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter the Query"
+              minLength="5"
+              maxLength="100"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid query!</div>
+            <div class="valid-feedback">Looks good</div>
+          </div>
+
+          <div>
+            <input
+              type="number"
+              value={devId}
+              onChange={updateDevId}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter Dev Id"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid Dev Id !</div>
+            <div class="valid-feedback">Looks good</div>
+          </div>
+
+          <div>
+            <input
+              type="datetime-local"
+              value={feedDateTime}
+              onChange={updateFeedDateTime}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter the Feed Date Time"
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              value={topic}
+              onChange={updateTopic}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter the Topic"
+              minLength="3"
+              maxLength="30"
+              required
+            />
+            <div class="invalid-feedback">Please provide a valid Topic !</div>
+            <div class="valid-feedback">Looks good</div>
+          </div>
+
+          <div>
+            <input
+              type="range"
+              value={relevance}
+              onChange={updateRelevance}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter the percentage Relevance"
+              maxLength="2"
+              required
+            />
+          </div>
+
+          <div>
+            <input
+              type="text"
+              value={totalComments}
+              onChange={updateTotalComments}
+              className="form-control form-control-lg mb-1"
+              placeholder="Enter the number of comments"
+              required
+            />
+          </div>
+
+          <div>
+            {state.feed.uref.id ? (
+              <input
+                type="button"
+                onClick={updateFeed}
+                value="Update Feed"
+                className="btn btn-lg btn-secondary w-100"
+              />
+            ) : (
+              <input
+                type="button"
+                onClick={addNewFeed}
+                value="Add Feed"
+                className="btn btn-lg btn-secondary w-100"
+              />
+            )}
+          </div>
+        </form>
       </div>
-
-      {state.feed.progress && (
-        <div className="mx-4 alert alert-success">Operation Success</div>
-      )}
-
-      <form ref={formEl} className="mx-4 needs-validation " noValidate>
-        <div>
-          <input
-            type="text"
-            value={query}
-            onChange={updateQuery}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter the Query"
-            minLength="5"
-            maxLength="100"
-            required
-          />
-        </div>
-
-        <div>
-          <input
-            type="number"
-            value={devId}
-            onChange={updateDevId}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter Dev Id"
-            required
-          />
-        </div>
-
-        <div>
-          <input
-            type="datetime-local"
-            value={feedDateTime}
-            onChange={updateFeedDateTime}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter the Feed Date Time"
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            value={topic}
-            onChange={updateTopic}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter the Topic"
-            minLength="3"
-            maxLength="30"
-            required
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            value={relevance}
-            onChange={updateRelevance}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter the percentage Relevance"
-            maxLength="2"
-            required
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            value={totalComments}
-            onChange={updateTotalComments}
-            className="form-control form-control-lg mb-1"
-            placeholder="Enter the number of comments"
-            required
-          />
-        </div>
-
-        <div>
-          {state.feed.uref.id ? (
-            <input
-              type="button"
-              onClick={updateFeed}
-              value="Update Feed"
-              className="btn btn-lg btn-secondary w-100"
-            />
-          ) : (
-            <input
-              type="button"
-              onClick={addNewFeed}
-              value="Add Feed"
-              className="btn btn-lg btn-secondary w-100"
-            />
-          )}
-        </div>
-      </form>
     </div>
   );
 };
