@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -13,7 +13,7 @@ export const FeedList = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  //const formEl = useRef();
+  const formEl = useRef();
 
   const [id, setId] = useState(state.feed.uref.id);
   const updateId = (e) => setId(e.target.value);
@@ -22,24 +22,32 @@ export const FeedList = () => {
     dispatch(getAllFeedAction());
   }, []);
 
-  // const getFeedByIdRecord = (e) => {
-  //   //e.preventDefault();
-  //   //const isFormValid = formEl.current.checkValidity();
-  //   //if (isFormValid) {
-  //   dispatch(getFeedByIdAction({ e }));
-  //   //}
+  const getFeedByIdRecord = (e) => {
+    e.preventDefault();
+    const isFormValid = formEl.current.checkValidity();
+    if (isFormValid) {
+      dispatch(
+        getFeedByIdAction({
+          id,
+        })
+      );
+      setId("");
+    } else {
+      e.stopPropagation();
+      formEl.current.classList.add("was-validated");
+    }
+  };
+
+  // const getFeedByIdRecord = () => {
+  //   dispatch(getFeedByIdAction(2));
   // };
 
-  const getFeedByIdRecord = () => {
-    dispatch(getFeedByIdAction(2));
-  };
-
   //Static Likes function
-  let [like, setlike] = useState(0);
-  const addLike = () => {
-    like = like + 1;
-    setlike(like);
-  };
+  // let [like, setlike] = useState(0);
+  // const addLike = () => {
+  //   like = like + 1;
+  //   setlike(like);
+  // };
 
   const deleteRecord = (item) => {
     console.log("DELETE RECORD", item.id);
@@ -63,35 +71,20 @@ export const FeedList = () => {
       <div className="alert alert-secondary mb-0">
         <h3>Feed List</h3>
 
-        <form>
-          <label htmlFor="header-search">
-            <span className="visually-hidden"></span>
-          </label>
-          <input
-            type="text"
-            id="header-search"
-            placeholder="Enter your search"
-            onChange={updateId}
-            name="s"
-          />
-          <button type="button" onClick={() => getFeedByIdRecord()}>
-            Search
-          </button>
+        <form ref={formEl} className="mx-4 needs-validation" noValidate>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter your id"
+              value={id}
+              onChange={updateId}
+              className="form-control form-control-sm mb-1 mr-5 "
+            />
+          </div>
+          <div>
+            <input type="button" value="Search" onClick={getFeedByIdRecord} />
+          </div>
         </form>
-        {/* <form>
-          <input
-            type="text"
-            placeholder="Enter your Search"
-            value={id}
-            onChange={updateId}
-            className="form-control form-control-lg mb-1"
-          />
-          <input
-            type="button"
-            value="Search"
-            onClick={() => getFeedByIdRecord()}
-          />
-        </form> */}
       </div>
 
       <table className="table">
@@ -141,13 +134,13 @@ export const FeedList = () => {
                   onClick={() => deleteRecord(item)}
                   className="btn btn-outline-danger btn-sm mb-1 ml-1 mr-1 "
                 />
-                <button
+                {/* <button
                   className=" btn btn-secondary btn-sm] text-light"
                   onClick={addLike}
                 >
                   <span className="ml-3">Likes 👍 </span>
                   {like}
-                </button>
+                </button> */}
               </td>
             </tr>
           ))}

@@ -39,7 +39,7 @@ export const getAllFeedAction = () => {
 export const getFeedByIdAction = (payload) => {
   return async (dispatch) => {
     // API CALL :: FETCH RECORDS
-    const url = `http://localhost:8080/api/v1/feeds/get/${payload}`;
+    const url = `http://localhost:8080/api/v1/feeds/get/${payload.id}`;
     const response = await axios.get(url);
 
     console.log(response);
