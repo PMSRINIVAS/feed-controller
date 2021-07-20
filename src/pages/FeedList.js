@@ -96,7 +96,7 @@ export const FeedList = () => {
     <div style={{ backgroundImage: "url(1.png)" }} className="sign-up-bg">
       <div>
         <div className="alert alert-secondary mb-0">
-          <h3>Feed List</h3>
+          <h3>Feed List ✍️ : </h3>
 
           <form
             ref={formEl}
@@ -174,18 +174,18 @@ export const FeedList = () => {
           <thead className="thead-dark">
             <tr>
               <th scope="col">
-                <div className="mr-3">Feed Id</div>
+                <div className="mr-3">Feed Id 🆔 </div>
               </th>
-              <th scope="col">Query</th>
+              <th scope="col">Query 📄 </th>
               {/* <th scope="col">Dev Id</th> */}
-              <th scope="col">FeedDateTime</th>
+              <th scope="col">FeedDateTime 📅</th>
 
-              <th scope="col">Topic</th>
-              <th scope="col">Relevance</th>
-              <th scope="col">TotalComments</th>
+              <th scope="col">Topic 💯</th>
+              <th scope="col">Relevance 📐 </th>
+              <th scope="col">TotalComments 🗒️ </th>
 
               <th scope="col" className=" text-center">
-                Action
+                Action 🔧
               </th>
             </tr>
           </thead>

@@ -176,6 +176,10 @@ export const FeedUpsert = () => {
               maxLength="2"
               required
             />
+            <div class="invalid-feedback">
+              Please provide a valid Relevance range !
+            </div>
+            <div class="valid-feedback">Looks good</div>
           </div>
 
           <div>
