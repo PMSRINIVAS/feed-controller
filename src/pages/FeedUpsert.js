@@ -132,12 +132,13 @@ export const FeedUpsert = () => {
             onChange={updateDevId}
             className="form-control form-control-lg mb-1"
             placeholder="Enter Dev Id"
+            required
           />
         </div>
 
         <div>
           <input
-            type="text"
+            type="datetime-local"
             value={feedDateTime}
             onChange={updateFeedDateTime}
             className="form-control form-control-lg mb-1"

@@ -8,7 +8,7 @@ import {
   updateRenderAction,
   getFeedByIdAction,
   getFeedByTopicAction,
-  getFeedByKeywordAction,
+  //getFeedByKeywordAction,
 } from "../redux/FeedReducer";
 
 export const FeedList = () => {
@@ -97,35 +97,53 @@ export const FeedList = () => {
       <div className="alert alert-secondary mb-0">
         <h3>Feed List</h3>
 
-        <form ref={formEl} className="mx-4 needs-validation" noValidate>
+        <form
+          ref={formEl}
+          className="mx-4 needs-validation form-inline"
+          noValidate
+        >
           <div>
             <input
-              type="text"
+              type="number"
               placeholder="Enter your id"
+              style={{ width: "200px" }}
               value={id}
               onChange={updateId}
-              className="form-control form-control-sm mb-1 mr-5 "
+              className="form-control form-control-sm mb-2 mr-1 "
             />
           </div>
           <div>
-            <input type="button" value="Search" onClick={getFeedByIdRecord} />
+            <input
+              type="button"
+              className="btn btn-secondary btn-sm mb-2 "
+              value="Search"
+              onClick={getFeedByIdRecord}
+            />
           </div>
         </form>
 
-        <form ref={formEl} className="mx-4 needs-validation" noValidate>
+        <form
+          ref={formEl}
+          className="mx-4 needs-validation form-inline "
+          noValidate
+        >
           <div>
             <input
               type="text"
               placeholder="Enter your topic"
               value={topic}
               onChange={updateTopic}
-              className="form-control form-control-sm mb-1 mr-5 "
+              style={{ width: "200px" }}
+              className="form-control form-control-sm mb-2 mr-1 "
+              minLength="3"
+              maxLength="30"
             />
           </div>
           <div>
             <input
               type="button"
               value="Search"
+              className="btn btn-secondary btn-sm mb-1 "
               onClick={getFeedByTopicRecord}
             />
           </div>
